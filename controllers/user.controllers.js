@@ -6,17 +6,19 @@ import { UserModel } from "../model/User.model.js";
 config();
 export const userLogin = async (req, res, next) => {
   const credentials = req.body;
+  console.log(credentials, "credentials");
   try {
     const user = await UserModel.find(credentials);
-    if (user) {
+    if (user.length >= 1) {
       const token = jwt.sign(credentials, process.env.secret);
       res.send({
         message: "Successfully Logged in!",
         token,
       });
-    }
+    } else res.send({ message: "Login Failed" });
   } catch (error) {
     console.log("Error while retrieving user", error);
+    res.send("Something went wrong!");
   }
 };
 
