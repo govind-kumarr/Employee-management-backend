@@ -6,7 +6,7 @@ import { UserModel } from "../model/User.model.js";
 config();
 export const userLogin = async (req, res, next) => {
   const credentials = req.body;
-  console.log(credentials, "credentials");
+  // console.log(credentials, "credentials");
   try {
     const user = await UserModel.find(credentials);
     if (user.length >= 1) {
