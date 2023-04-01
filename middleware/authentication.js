@@ -13,7 +13,7 @@ export const authenticate = async (req, res, next) => {
       res.send("You are not authorized to access this resource");
     }
   } catch (error) {
-    console.log("Something went wrong!");
+    console.log("You are not authenticated", token);
     res.send("You are not authorized to access this resource");
   }
 };

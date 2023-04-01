@@ -1,6 +1,6 @@
 import { EmployeeModel } from "../model/Employee.model.js";
 
-export const getEmployees = async (req, res, next) => {
+export const getEmployees = async (req, res) => {
   try {
     const employees = await EmployeeModel.find();
     res.send(employees);
@@ -10,7 +10,17 @@ export const getEmployees = async (req, res, next) => {
   }
 };
 
-export const addEmployee = async (req, res, next) => {
+export const getEmployee = async (req, res) => {
+  const { emp_id } = req.params;
+  try {
+    const employee = await EmployeeModel.findOne({ emp_id });
+    res.send(employee);
+  } catch (error) {
+    console.log("Error while fetching employee", error);
+  }
+};
+
+export const addEmployee = async (req, res) => {
   const data = req.body;
   try {
     const flag = await doEmpExists(data.emp_id);

@@ -5,6 +5,7 @@ const EmployeeSchema = mongoose.Schema({
   emp_id: { type: String, required: true },
   date_of_joining: { type: String, required: true },
   designation: { type: String, required: true },
+  prev_emp_data: { type: Array, default: [] },
 });
 
 export const EmployeeModel = mongoose.model("employees", EmployeeSchema);
