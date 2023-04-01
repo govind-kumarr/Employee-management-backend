@@ -13,12 +13,17 @@ export const getEmployees = async (req, res, next) => {
 export const addEmployee = async (req, res, next) => {
   const data = req.body;
   try {
+    const flag = await doEmpExists(data.emp_id);
+    if (flag != null) {
+      res.send(`Employee exists with similar employee id -> ${data.emp_id}`);
+      return;
+    }
     await EmployeeModel.insertMany([data]);
     res.status(200).send("Employee Added Successfully");
     console.log("Data successfully inserted");
   } catch (error) {
     console.log("Error while adding data!\n", error);
-    res.status(404).send("Something wne");
+    res.status(404).send("Something went wrong!");
   }
 };
 
@@ -32,3 +37,17 @@ export const deleteEmployee = async (req, res) => {
     res.send("Something went wrong!");
   }
 };
+
+export const updateEmployee = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+  try {
+    await EmployeeModel.findByIdAndUpdate(id, updateData);
+    res.send("Successfully updated!");
+  } catch (error) {
+    console.log("Error updating employee\n", error);
+    res.send("Something Went Wrong");
+  }
+};
+
+export const doEmpExists = (emp_id) => EmployeeModel.exists({ emp_id });

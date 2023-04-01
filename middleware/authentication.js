@@ -7,7 +7,7 @@ export const authenticate = async (req, res, next) => {
   const { token } = req.headers;
   try {
     const decoded = jwt.verify(token, process.env.secret);
-    console.log(decoded, "decoded token");
+    // console.log(decoded, "decoded token");
     if (decoded) next();
     else {
       res.send("You are not authorized to access this resource");
