@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getEmploymentData, postEmploymentData } from "../controllers/prevempl.controllers.js";
+import {
+  getEmploymentData,
+  postEmploymentData,
+} from "../controllers/prevempl.controllers.js";
 
 export const PrevEmplRouter = Router();
 

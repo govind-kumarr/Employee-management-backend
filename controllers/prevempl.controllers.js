@@ -8,7 +8,6 @@ export const postEmploymentData = async (req, res) => {
   let flag = doEmpExists(emp_id);
   let validDate = isValidDate(data?.from, data?.to);
   if (!flag || !validDate) return res.send("Invalid data");
-
   try {
     await PrevEmpl.insertMany([data]);
     res.send("Successfully inserted data!");
