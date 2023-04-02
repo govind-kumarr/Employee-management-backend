@@ -5,9 +5,9 @@ import { doEmpExists } from "./employee.controller.js";
 export const postEmploymentData = async (req, res) => {
   const { emp_id } = req.params;
   const data = req.body;
-  let flag = doEmpExists(emp_id);
+  let flag = await doEmpExists(emp_id);
   let validDate = isValidDate(data?.from, data?.to);
-  if (!flag || !validDate) return res.send("Invalid data");
+  if (!flag._id || !validDate) return res.send("Invalid data");
   try {
     await PrevEmpl.insertMany([data]);
     res.send("Successfully inserted data!");
@@ -24,6 +24,17 @@ export const getEmploymentData = async (req, res, next) => {
     res.send(data);
   } catch (err) {
     console.log("Error occurred: while fetching prev employment data", err);
+    res.send("Something went wrong!");
+  }
+};
+
+export const deleteEmploymentData = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await PrevEmpl.findByIdAndDelete(id);
+    res.send("Deleted Data Successfully!");
+  } catch (err) {
+    console.log("Error occurred: while deleting prev employment data", err);
     res.send("Something went wrong!");
   }
 };

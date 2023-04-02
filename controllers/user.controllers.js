@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import { UserModel } from "../model/User.model.js";
 
 config();
+
 export const userLogin = async (req, res, next) => {
   const credentials = req.body;
   try {
